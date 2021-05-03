@@ -50,7 +50,7 @@ class Body extends StatelessWidget {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               // ignore: unnecessary_statements
-                              _launchTOS; // function
+                              _launchTOS(); // function
                             }),
                       TextSpan(
                           text: ' and ',
@@ -65,7 +65,7 @@ class Body extends StatelessWidget {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     // ignore: unnecessary_statements
-                                    _launchTOS;
+                                   _launchTOS();
                                   })
                           ])
                     ]))),
@@ -90,6 +90,6 @@ class Body extends StatelessWidget {
   }
 }
 
-void _launchTOS() async => await canLaunch('www.google.com')
-    ? await launch('www.google.com')
+void _launchTOS() async => await canLaunch('https://www.google.com/')
+    ? await launch('https://www.google.com/')
     : throw 'Could not launch';
