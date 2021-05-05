@@ -83,6 +83,7 @@ class _LoginBodyState extends State<LoginBody> {
                                 showPhoneCode: true,
                                 onSelect: (Country country) {
                                   this.code = country.phoneCode;
+
                                   print('Select country: ${country.phoneCode}');
                                 },
                               );
@@ -107,6 +108,7 @@ class _LoginBodyState extends State<LoginBody> {
                     */
 
                     decoration: InputDecoration(
+                        //prefix: Text('${code}'),
                         filled: true,
                         fillColor: kPrimaryLightColor,
                         border: OutlineInputBorder(),
