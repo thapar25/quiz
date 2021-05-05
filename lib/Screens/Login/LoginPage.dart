@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:quiz/constants.dart';
+import 'package:country_picker/country_picker.dart';
+import 'package:flutter/services.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -17,79 +19,112 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  final TextEditingController controller = TextEditingController();
-  String initialCountry = 'NG';
-  PhoneNumber number = PhoneNumber(isoCode: 'NG');
-
   @override
+  TextEditingController phoneController = new TextEditingController();
+  TextEditingController nameController = new TextEditingController();
+  String phoneNumber = "";
+  String code = "91";
+  String number = "";
+  String username = "";
+
+  void printDetails() {
+    phoneNumber = "+" + this.code.toString() + phoneController.text.toString();
+    print(nameController.text);
+    print(phoneNumber);
+  }
+
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            InternationalPhoneNumberInput(
-              onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
-              },
-              onInputValidated: (bool value) {
-                print(value);
-              },
-              selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-              ),
-              ignoreBlank: false,
-              autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: TextStyle(color: Colors.black),
-              initialValue: number,
-              textFieldController: controller,
-              formatInput: false,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: true, decimal: true),
-              inputBorder: OutlineInputBorder(),
-              onSaved: (PhoneNumber number) {
-                print('On Saved: $number');
-              },
-            ),
-            RoundedButton(
-              press: () {
-                formKey.currentState.validate();
-              },
-              text:('Validate'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                getPhoneNumber('+15417543010');
-              },
-              child: Text('Update'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                formKey.currentState.save();
-              },
-              child: Text('Save'),
-            ),
-          ],
+    // ignore: unused_local_variable
+    Size size = MediaQuery.of(context).size;
+
+    return Scaffold(
+        backgroundColor: kPrimaryLightColor,
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text("Login Page"),
         ),
-      ),
-    );
-  }
+        body: Container(
+          child: (SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 60.0),
+                  child: Center(),
+                ),
+                Padding(
+                  //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: kPrimaryLightColor,
+                        border: OutlineInputBorder(),
+                        labelText: 'Username',
+                        hintText: 'Enter name'),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Choose country : '),
+                        Opacity(
+                          opacity: 0.5,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: kPrimaryColor,
+                              onPrimary: kPrimaryLightColor,
+                            ),
+                            onPressed: () {
+                              showCountryPicker(
+                                context: context,
+                                showPhoneCode: true,
+                                onSelect: (Country country) {
+                                  this.code = country.phoneCode;
+                                  print('Select country: ${country.phoneCode}');
+                                },
+                              );
+                            },
+                            child: Text('country'),
+                          ),
+                        )
+                      ]),
+                ),
+                Padding(
+                  //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: TextFormField(
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                      LengthLimitingTextInputFormatter(10)
+                    ],
+                    controller: phoneController,
+                    /*
+                    maxLength: 10,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                    */
 
-  void getPhoneNumber(String phoneNumber) async {
-    PhoneNumber number =
-        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
-
-    setState(() {
-      this.number = number;
-    });
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: kPrimaryLightColor,
+                        border: OutlineInputBorder(),
+                        labelText: 'Phone Number',
+                        hintText: 'Enter 10-digit number'),
+                  ),
+                ),
+                Container(
+                  child: RoundedButton(
+                    text: 'Generate OTP',
+                    press: () {
+                      printDetails();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )),
+        ));
   }
 }
