@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+
+import 'package:quiz/Screens/Login/OTPpage.dart';
+//import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:quiz/constants.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/services.dart';
+
+
 
 class LoginPage extends StatelessWidget {
   @override
@@ -20,6 +24,7 @@ class LoginBody extends StatefulWidget {
 
 class _LoginBodyState extends State<LoginBody> {
   @override
+  // ignore: override_on_non_overriding_member
   TextEditingController phoneController = new TextEditingController();
   TextEditingController nameController = new TextEditingController();
   String phoneNumber = "";
@@ -28,7 +33,6 @@ class _LoginBodyState extends State<LoginBody> {
   String username = "";
 
   void printDetails() {
-    phoneNumber = "+" + this.code.toString() + phoneController.text.toString();
     print(nameController.text);
     print(phoneNumber);
   }
@@ -71,26 +75,26 @@ class _LoginBodyState extends State<LoginBody> {
                       children: <Widget>[
                         Text('Choose country : '),
                         Opacity(
-                          opacity: 0.5,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: kPrimaryColor,
-                              onPrimary: kPrimaryLightColor,
-                            ),
-                            onPressed: () {
-                              showCountryPicker(
-                                context: context,
-                                showPhoneCode: true,
-                                onSelect: (Country country) {
-                                  this.code = country.phoneCode;
+                            opacity: 0.5,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.transparent,
+                                onPrimary: kPrimaryLightColor,
+                              ),
+                              onPressed: () {
+                                showCountryPicker(
+                                  context: context,
+                                  showPhoneCode: true,
+                                  onSelect: (Country country) {
+                                    this.code = country.phoneCode;
 
-                                  print('Select country: ${country.phoneCode}');
-                                },
-                              );
-                            },
-                            child: Text('country'),
-                          ),
-                        )
+                                    print(
+                                        'Select country: ${country.phoneCode}');
+                                  },
+                                );
+                              },
+                              child: Text('country'),
+                            ))
                       ]),
                 ),
                 Padding(
@@ -120,7 +124,18 @@ class _LoginBodyState extends State<LoginBody> {
                   child: RoundedButton(
                     text: 'Generate OTP',
                     press: () {
+                      phoneNumber = "+" +
+                          this.code.toString() +
+                          phoneController.text.toString();
                       printDetails();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OTPScreen(phoneNumber);
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),

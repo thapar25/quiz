@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "845828370401",
+    "project_id": "quizgame-a6282",
+    "storage_bucket": "quizgame-a6282.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845828370401:android:6f00a317800c393551aca0",
+        "android_client_info": {
+          "package_name": "com.android.testingOTP"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845828370401-c10nd2um2cm00ms43bmr34th4g5c7g81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJTRefAPmP6bG4jX5dcCVoMQgZZ28nSxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845828370401-c10nd2um2cm00ms43bmr34th4g5c7g81.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
