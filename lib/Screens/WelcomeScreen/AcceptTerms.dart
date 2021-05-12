@@ -35,7 +35,8 @@ class Body extends StatelessWidget {
               child: Text("Logo goes here"),
             ),
             SizedBox(
-                height: size.height * 0.05,
+                height: size.height * 0.08,
+                
                 child: Text.rich(TextSpan(
                     text: 'By continuing, you agree to our ',
                     style: TextStyle(fontSize: 16, color: Colors.black),
@@ -65,7 +66,7 @@ class Body extends StatelessWidget {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     // ignore: unnecessary_statements
-                                   _launchTOS();
+                                    _launchTOS();
                                   })
                           ])
                     ]))),

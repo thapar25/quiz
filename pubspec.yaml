@@ -33,8 +33,9 @@ dependencies:
   url_launcher:
   firebase_core: ^0.7.0
   firebase_auth:  ^0.20.0
-  intl_phone_number_input: ^0.6.0
-  country_picker: ^2.0.4
+  international_phone_input: ^1.0.4
+  
+  
   pinput: ^1.2.0
 
 dev_dependencies:
