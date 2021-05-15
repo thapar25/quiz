@@ -1,7 +1,11 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:quiz/Screens/Home/HomePage.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class OTPScreen extends StatefulWidget {
   final String phone;
@@ -12,6 +16,7 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
+
   String _verificationCode;
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
@@ -60,6 +65,9 @@ class _OTPScreenState extends State<OTPScreen> {
                           verificationId: _verificationCode, smsCode: pin))
                       .then((value) async {
                     if (value.user != null) {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setString('phone', widget.phone);
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (context) => HomePage()),

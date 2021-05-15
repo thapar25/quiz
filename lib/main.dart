@@ -1,12 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz/Screens/Home/HomePage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'constants.dart';
 import 'Screens/WelcomeScreen/AcceptTerms.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
-  runApp(MyApp());
+  await Firebase.initializeApp();
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var phone = prefs.getString('phone');
+  runApp(phone == null ? MyApp() : HomePage());
 }
 
 class MyApp extends StatelessWidget {
