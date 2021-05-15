@@ -7,7 +7,7 @@ import 'Screens/WelcomeScreen/AcceptTerms.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  Firebase.initializeApp();
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var phone = prefs.getString('phone');

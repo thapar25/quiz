@@ -89,11 +89,14 @@ class _LoginBodyState extends State<LoginBody> {
               ),
             ),
             SizedBox(height: 20),
-            InternationalPhoneInput(
-              onPhoneNumberChange: onPhoneNumberChange,
-              initialPhoneNumber: phoneNumber,
-              initialSelection: 'IN',
-              labelText: "Phone Number",
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: InternationalPhoneInput(
+                onPhoneNumberChange: onPhoneNumberChange,
+                initialPhoneNumber: phoneNumber,
+                initialSelection: 'IN',
+                labelText: "Phone Number",
+              ),
             ),
             SizedBox(height: 20),
             SizedBox(height: 20),
